@@ -1,111 +1,377 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+/* =====================================================================
+   Vehículos: estilos para pegar en src/index.css
+   Paleta: tomate (acción), café (texto y pickups), azul (sedanes y SUV)
+   Todo vive bajo .vh-app para no chocar con otros estilos.
+   Si tu index.css viene de la plantilla de Vite, bórrale el contenido
+   anterior (body con display:flex y #root con max-width) antes de pegar.
+   ===================================================================== */
 
 body {
   margin: 0;
+  display: block;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+#root {
+  width: 100%;
+  max-width: none;
   margin: 0;
+  padding: 0;
+  text-align: initial;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
+.vh-app {
+  /* Paleta */
+  --tomate: #e5422b;
+  --tomate-suave: #fde8e3;
+  --cafe: #6a4128;
+  --cafe-suave: #f3e8df;
+  --azul: #2461c8;
+  --azul-suave: #e2ecfb;
+  --caramelo: #b8791f;
+  --caramelo-suave: #faeed8;
+
+  /* Neutros: la tinta es café muy oscuro, no negro */
+  --fondo: #f5f6f8;
+  --superficie: #ffffff;
+  --tinta: #2a1e17;
+  --tenue: #7b6f68;
+  --linea: #e4e0dc;
+
+  --fuente: "Avenir Next", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+
+  min-height: 100svh;
+  width: 100%;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  box-sizing: border-box;
+}
+
+.vh-app *,
+.vh-app *::before,
+.vh-app *::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  .vh-app {
+    --tomate: #ff6a50;
+    --tomate-suave: #3a1e19;
+    --cafe: #d9a57e;
+    --cafe-suave: #33261d;
+    --azul: #6ea0ff;
+    --azul-suave: #17233c;
+    --caramelo: #e2a64f;
+    --caramelo-suave: #382a14;
+
+    --fondo: #14110f;
+    --superficie: #1e1916;
+    --tinta: #f2ebe5;
+    --tenue: #a79a91;
+    --linea: #36302b;
+  }
+}
+
+/* ---------- Cabecera ---------- */
+.vh-cabecera {
+  max-width: 62rem;
+  margin: 0 auto 2rem;
+}
+
+.vh-cabecera h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.vh-cabecera p {
+  margin: 0.5rem 0 0;
+  color: var(--tenue);
+  font-size: 1.05rem;
+}
+
+/* ---------- Selector de consultas ---------- */
+.vh-filtros {
+  max-width: 62rem;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vh-filtro {
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--tinta);
+  background: var(--superficie);
+  border: 1.5px solid var(--linea);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.vh-filtro:hover {
+  border-color: var(--tomate);
+}
+
+.vh-filtro--activo {
+  color: #fff;
+  background: var(--tomate);
+  border-color: var(--tomate);
+}
+
+.vh-filtro:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+/* ---------- Regla de la consulta ---------- */
+.vh-regla {
+  max-width: 62rem;
+  margin: 0 auto 1.5rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-left: 5px solid var(--cafe);
+  border-radius: 6px 14px 14px 6px;
+}
+
+.vh-regla__titulo {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tenue);
+}
+
+.detalle-consulta h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.2rem;
+  color: var(--cafe);
+}
+
+.detalle-consulta p {
+  margin: 0.2rem 0;
+  line-height: 1.5;
+}
+
+.detalle-consulta strong {
+  color: var(--azul);
+  font-weight: 700;
+}
+
+/* ---------- Total y estado vacío ---------- */
+.vh-total {
+  max-width: 62rem;
+  margin: 0 auto 1.25rem;
+  color: var(--tenue);
+}
+
+.vh-total strong {
+  display: inline-block;
+  min-width: 2rem;
+  padding: 0.1rem 0.6rem;
+  margin-left: 0.25rem;
+  text-align: center;
+  color: var(--tinta);
+  background: var(--cafe-suave);
+  border-radius: 999px;
+}
+
+.vh-vacio {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--tenue);
+  border: 2px dashed var(--linea);
+  border-radius: 16px;
+}
+
+/* ---------- Cuadrícula ---------- */
+.vh-grid {
+  max-width: 62rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.25rem;
+}
+
+/* ---------- Tarjeta ---------- */
+.vh-card {
+  /* Color por defecto; cada tipo lo reemplaza */
+  --acento: var(--cafe);
+  --acento-suave: var(--cafe-suave);
+
+  overflow: hidden;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 18px;
+}
+
+.vh-tipo--sedan     { --acento: var(--azul);     --acento-suave: var(--azul-suave); }
+.vh-tipo--suv       { --acento: var(--tomate);   --acento-suave: var(--tomate-suave); }
+.vh-tipo--pickup    { --acento: var(--cafe);     --acento-suave: var(--cafe-suave); }
+.vh-tipo--hatchback { --acento: var(--caramelo); --acento-suave: var(--caramelo-suave); }
+
+/* Zona del auto: ícono sobre una carretera punteada */
+.vh-card__visual {
+  position: relative;
+  height: 8.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--acento-suave);
+  overflow: hidden;
+}
+
+.vh-card__visual::before {
+  content: "";
+  position: absolute;
+  right: -2.2rem;
+  top: -2.2rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: var(--acento);
+  opacity: 0.12;
+}
+
+.vh-card__visual::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.1rem;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--acento) 0 14px, transparent 14px 26px);
+  opacity: 0.35;
+}
+
+.vh-card__icono {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  font-size: 3.6rem;
+  color: var(--acento);
+  transition: transform 0.3s ease;
+}
+
+/* El auto avanza cuando pasas el cursor por la tarjeta */
+.vh-card:hover .vh-card__icono {
+  transform: translateX(0.6rem);
+}
+
+.vh-card__tipo {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 1;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--acento);
+  border-radius: 999px;
+}
+
+/* Cuerpo */
+.vh-card__cuerpo {
+  padding: 1.1rem 1.25rem 1.2rem;
+}
+
+.vh-card__marca {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--tenue);
+}
+
+.vh-card__modelo {
+  margin: 0.1rem 0 0.8rem;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.vh-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--tenue);
+}
+
+.vh-stock {
   display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--tinta);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.vh-stock::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--azul);
+}
+
+.vh-stock--agotado {
+  color: var(--tomate);
+}
+
+.vh-stock--agotado::before {
+  background: var(--tomate);
+}
+
+.vh-card__pie {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--linea);
+}
+
+.vh-card__precio {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.vh-card__id {
+  font-size: 0.75rem;
+  color: var(--tenue);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 520px) {
+  .vh-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vh-filtro {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .vh-card__icono,
+  .vh-filtro {
+    transition: none;
+  }
+
+  .vh-card:hover .vh-card__icono {
+    transform: none;
+  }
 }
