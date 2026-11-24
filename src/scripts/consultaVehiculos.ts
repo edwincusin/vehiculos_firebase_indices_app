@@ -188,26 +188,27 @@ export const obtenerVehiculos = async (): Promise<Vehiculo[]> => {
 };
 
 
+export const TAMANIO_PAGINA = 10;
 //============================================================================
 //PAGINACION -- USO DE LIMIT - startAfter - orderBy- QueryDocumentSnapshot
 //============================================================================
 export const obtenerVehiculosPaginados = async (cursor?: QueryDocumentSnapshot<DocumentData>) => {
 
     let consultaArmada;
-    const tamanioPagina = 10;
+    
 
     if (cursor) {
         consultaArmada = query(
             collection(db, "vehiculos"),
             orderBy("modelo", "asc"),
             startAfter(cursor),
-            limit(tamanioPagina)
+            limit(TAMANIO_PAGINA)
         )
     } else {
         consultaArmada = query(
             collection(db, "vehiculos"),
             orderBy("modelo", "asc"),
-            limit(tamanioPagina)
+            limit(TAMANIO_PAGINA)
         )
     }
 
@@ -218,7 +219,7 @@ export const obtenerVehiculosPaginados = async (cursor?: QueryDocumentSnapshot<D
         ...documento.data()
     })) as Vehiculo[];
 
-    const nuevoUltimoDocumento = vehiculosEncontradosBDD.docs[vehiculosEncontradosBDD.docs.length - 1];
+    const nuevoCursor = vehiculosEncontradosBDD.docs[vehiculosEncontradosBDD.docs.length - 1];
 
-    return { listaVehiculos, cursor: nuevoUltimoDocumento };
+    return { listaVehiculos, cursor: nuevoCursor, };
 };

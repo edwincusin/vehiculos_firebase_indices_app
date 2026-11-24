@@ -375,3 +375,135 @@ body {
     transform: none;
   }
 }
+
+
+
+/* ==============================
+   PAGINACIÓN
+============================== */
+
+.vh-paginacion {
+    max-width: 62rem;
+    margin: 2.5rem auto 0;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: 18px;
+}
+
+.vh-btn {
+    padding: 0.85rem 1.4rem;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.vh-btn--anterior {
+    color: var(--cafe);
+    background: var(--cafe-suave);
+}
+
+.vh-btn--siguiente {
+    color: white;
+    background: var(--tomate);
+}
+
+.vh-btn--anterior:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: var(--cafe);
+    color: white;
+}
+
+.vh-btn--siguiente:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #c93622;
+}
+
+.vh-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.vh-paginacion__numero {
+    min-width: 100px;
+    text-align: center;
+    font-weight: 800;
+    color: var(--tinta);
+}
+
+/* ==============================
+   ANIMACIÓN DE TARJETAS
+============================== */
+
+.vh-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vh-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(42, 30, 23, 0.10);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 520px) {
+
+    .vh-paginacion {
+        flex-direction: column;
+    }
+
+    .vh-btn {
+        width: 100%;
+    }
+
+    .vh-paginacion__numero {
+        order: -1;
+    }
+
+}
+
+
+.vh-paginacion-info {
+    max-width: 62rem;
+    margin: 1.5rem auto;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+}
+
+.vh-paginacion-info h3 {
+    margin: 0;
+    color: var(--cafe);
+}
+
+.vh-paginacion-info p {
+    margin: 0;
+    color: var(--tenue);
+}
+
+.vh-paginacion-info strong {
+    color: var(--tomate);
+}
+
+.vh-paginacion-info span {
+    color: var(--tenue);
+    font-size: 0.85rem;
+}

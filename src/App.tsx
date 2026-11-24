@@ -1,4 +1,6 @@
 import TarjetasVehiculos from "./components/TarjetasVehiculos"
+import VehiculoListaPaginada from "./components/VehiculoListaPaginada"
+
 
 
 function App() {
@@ -6,7 +8,8 @@ function App() {
 
   return (
     <>
-      <TarjetasVehiculos />
+      {/* {<TarjetasVehiculos/>} */}
+      <VehiculoListaPaginada/>
     </>
   )
 }

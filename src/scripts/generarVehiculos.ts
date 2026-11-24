@@ -58,7 +58,6 @@ const vehiculos = [
     { marca: "Peugeot", modelo: "2008", precio: 29500, stock: 4, anio: 2024, tipo: "SUV" },
     { marca: "Subaru", modelo: "Forester", precio: 42000, stock: 3, anio: 2025, tipo: "SUV" },
     { marca: "Tesla", modelo: "Model 3", precio: 55000, stock: 0, anio: 2025, tipo: "Electrico" },
-    { marca: "Volvo", modelo: "XC40", precio: 48000, stock: 5, anio: 2024, tipo: "SUV" }
 ];
 
 export const generarVehiculos = async () => {
