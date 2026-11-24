@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { getDocs, where, orderBy, query, collection } from "firebase/firestore";
+import { getDocs, where, orderBy, query, collection, limit, QueryDocumentSnapshot, startAfter, type DocumentData } from "firebase/firestore";
 
 export interface Vehiculo {
     id: string,
@@ -185,4 +185,40 @@ export const obtenerVehiculos = async (): Promise<Vehiculo[]> => {
     })) as Vehiculo[];
 
     return listaVehiculos;
+};
+
+
+//============================================================================
+//PAGINACION -- USO DE LIMIT - startAfter - orderBy- QueryDocumentSnapshot
+//============================================================================
+export const obtenerVehiculosPaginados = async (cursor?: QueryDocumentSnapshot<DocumentData>) => {
+
+    let consultaArmada;
+    const tamanioPagina = 10;
+
+    if (cursor) {
+        consultaArmada = query(
+            collection(db, "vehiculos"),
+            orderBy("modelo", "asc"),
+            startAfter(cursor),
+            limit(tamanioPagina)
+        )
+    } else {
+        consultaArmada = query(
+            collection(db, "vehiculos"),
+            orderBy("modelo", "asc"),
+            limit(tamanioPagina)
+        )
+    }
+
+    const vehiculosEncontradosBDD = await getDocs(consultaArmada);// llegan datos crudos
+
+    const listaVehiculos = vehiculosEncontradosBDD.docs.map((documento) => ({
+        id: documento.id,
+        ...documento.data()
+    })) as Vehiculo[];
+
+    const nuevoUltimoDocumento = vehiculosEncontradosBDD.docs[vehiculosEncontradosBDD.docs.length - 1];
+
+    return { listaVehiculos, cursor: nuevoUltimoDocumento };
 };
